@@ -150,7 +150,8 @@
     .footer-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
     .footer-credit{font-size:12px;color:var(--white-muted);transition:color 0.2s} .footer-credit:hover{color:var(--shimmer)}
     .footer-legal{display:flex;gap:20px}
-    .footer-legal a{font-size:12px;color:var(--white-muted);transition:color 0.2s} .footer-legal a:hover{color:var(--white)}
+    .footer-legal a{font-size:12px;color:var(--white-muted);transition:color 0.2s;cursor:pointer;background:none;border:none;font-family:var(--font-body)} .footer-legal a:hover,.footer-legal button:hover{color:var(--white)}
+    .footer-legal button{font-size:12px;color:var(--white-muted);transition:color 0.2s;cursor:pointer;background:none;border:none;font-family:var(--font-body);padding:0}
     @media(min-width:901px){
       .eyebrow{justify-content:center}
       .hero-content{margin-inline:auto;text-align:center} .hero-kicker,.hero-sub{margin-inline:auto} .hero-actions{justify-content:center}
@@ -179,6 +180,25 @@
     .cursor-ring.hover{width:64px;height:64px;background:rgba(74,154,232,0.08);border-color:var(--shimmer)} .cursor-ring.press{width:30px;height:30px}
     body.has-custom-cursor,body.has-custom-cursor a,body.has-custom-cursor button,body.has-custom-cursor .btn,body.has-custom-cursor [onclick]{cursor:none}
     @media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(4,8,15,0.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.3s var(--ease-out-quint)}
+    .modal-overlay.open{opacity:1;pointer-events:all}
+    .modal-box{background:var(--floor);border:1px solid rgba(255,255,255,0.08);border-radius:8px;max-width:720px;width:100%;max-height:82vh;display:flex;flex-direction:column;transform:translateY(16px) scale(0.98);transition:transform 0.35s var(--ease-out-quint);box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+    .modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .modal-title{font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--white)}
+    .modal-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--white-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background 0.2s,color 0.2s,border-color 0.2s}
+    .modal-close:hover{background:rgba(255,255,255,0.08);color:var(--white);border-color:rgba(255,255,255,0.25)}
+    .modal-body{padding:24px 28px 32px;overflow-y:auto;font-size:14px;line-height:1.8;color:var(--white-dim)}
+    .modal-body::-webkit-scrollbar{width:6px} .modal-body::-webkit-scrollbar-thumb{background:var(--mid);border-radius:3px}
+    .modal-body h3{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--white);margin-top:24px;margin-bottom:8px}
+    .modal-body h3:first-child{margin-top:0}
+    .modal-body p{margin-bottom:10px}
+    .modal-body ul{margin:8px 0 12px 20px}
+    .modal-body li{margin-bottom:6px}
+    .modal-body a{color:var(--shimmer)}
+    .modal-updated{font-size:12px;color:var(--white-muted);margin-bottom:18px}
   </style>
 </head>
 <body>
@@ -307,7 +327,6 @@
         <p class="eyebrow reveal">Featured Work</p>
         <h2 id="portfolio-heading" class="section-title reveal reveal-d1">Results that<br><em>speak louder.</em></h2>
       </div>
-      <a href="https://forms.gle/JKFU3hc9B8QgUMRh6" target="_blank" rel="noopener noreferrer" class="btn btn-ghost reveal reveal-d2" style="white-space:nowrap">View All Projects →</a>
     </div>
     <div class="portfolio-grid">
       <a href="https://goespanhol.com.br" target="_blank" rel="noopener" class="project-card featured reveal" data-project="1">
@@ -336,36 +355,7 @@
 </section>
 <!--
 <section id="testimonials" aria-labelledby="testimonials-heading">
-  <div class="container">
-    <p class="eyebrow reveal">Testimonials</p>
-    <h2 id="testimonials-heading" class="section-title reveal reveal-d1">Clients who chose<br><em>better.</em></h2>
-    <div class="testimonials-grid">
-      <div class="testi-card reveal">
-        <div class="stars" aria-label="5 stars">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <div class="testi-quote-mark">"</div>
-        <p class="testi-text">Our inquiry rate tripled within six weeks of the new site going live. Corvina didn't just redesign our website — they redesigned how people perceive our firm.</p>
-        <div class="testi-author"><div class="testi-avatar">MH</div><div><div class="testi-name">Marcus Harrington</div><div class="testi-role">Managing Partner, Meridian Legal Group</div></div></div>
-      </div>
-      <div class="testi-card reveal reveal-d1">
-        <div class="stars" aria-label="5 stars">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <div class="testi-quote-mark">"</div>
-        <p class="testi-text">Working with Corvina felt nothing like any agency I'd hired before. They came with opinions, pushed back when I was wrong, and delivered something I couldn't have imagined asking for.</p>
-        <div class="testi-author"><div class="testi-avatar">JR</div><div><div class="testi-name">James Rourke</div><div class="testi-role">Founder, Solstice Kitchen</div></div></div>
-      </div>
-    </div>
-  </div>
+  ...
 </section>
 -->
 <section id="faq" aria-labelledby="faq-heading">
@@ -374,7 +364,7 @@
       <div class="faq-left">
         <p class="eyebrow reveal">FAQ</p>
         <h2 id="faq-heading" class="section-title reveal reveal-d1">Questions<br>we actually<br><em>get asked.</em></h2>
-        <p class="section-body reveal reveal-d2" style="margin-top:24px">Can't find your question here? Email us at <a href="mailto:corvinalab@gmail.com" style="color:var(--shimmer)">corvinalab@gmail.com</a></p>
+        <p class="section-body reveal reveal-d2" style="margin-top:24px">Can't find your question here? Email us at <a href="mailto:corvinalab@gmail.com?subject=Contato%20via%20site%20-%20Corvina" style="color:var(--shimmer)">corvinalab@gmail.com</a></p>
       </div>
       <div class="faq-list" id="faqList">
         <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How long does a typical project take?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><p>Landing pages are typically live within 5–7 business days. Full websites take 10–14 business days. We move fast without cutting corners — the 48-hour first draft is real.</p></div></div>
@@ -395,7 +385,7 @@
       <p class="cta-sub reveal reveal-d2">Let's give them something worth staying for.</p>
       <div class="cta-actions reveal reveal-d3">
         <a href="https://forms.gle/JKFU3hc9B8QgUMRh6" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start a Project →</a>
-        <a href="mailto:corvinalab@gmail.com" class="btn btn-ghost">corvinalab@gmail.com</a>
+        <a href="mailto:corvinalab@gmail.com?subject=Contato%20via%20site%20-%20Corvina" class="btn btn-ghost">corvinalab@gmail.com</a>
       </div>
     </div>
   </div>
@@ -409,18 +399,176 @@
         <p class="footer-tagline">Premium web design for small businesses across the United States.</p>
       </div>
       <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">Premium Websites</a></li><li><a href="#services">Landing Pages</a></li><li><a href="#services">Brand Identity</a></li><li><a href="#services">E-Commerce</a></li><li><a href="#services">Ongoing Care</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#portfolio">Work</a></li><li><a href="#process">Process</a></li><li><a href="#testimonials">Testimonials</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:corvinalab@gmail.com">corvinalab@gmail.com</a></li><li><a href="https://forms.gle/JKFU3hc9B8QgUMRh6" target="_blank" rel="noopener noreferrer">Start a Project</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#portfolio">Work</a></li><li><a href="#process">Process</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:corvinalab@gmail.com?subject=Contato%20via%20site%20-%20Corvina">corvinalab@gmail.com</a></li><li><a href="https://forms.gle/JKFU3hc9B8QgUMRh6" target="_blank" rel="noopener noreferrer">Start a Project</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">© 2025 Corvina. All rights reserved.</p>
       <div class="footer-right">
         <a href="https://corvinalab.com" target="_blank" rel="noopener" class="footer-credit">Made by corvinalab.com</a>
-        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+        <div class="footer-legal">
+          <button type="button" onclick="openModal('privacy')">Privacy Policy</button>
+          <a href="#">Terms of Service</a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- PRIVACY POLICY MODAL -->
+<div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle" onclick="if(event.target===this)closeModal('privacy')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title" id="privacyModalTitle">Privacy Policy</h3>
+      <button class="modal-close" aria-label="Close" onclick="closeModal('privacy')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-updated">Last Updated: July 21, 2026</p>
+
+      <h3>Introduction</h3>
+      <p>Welcome to CorvinaLab ("CorvinaLab," "we," "our," or "us").</p>
+      <p>Your privacy is important to us. We are committed to protecting your personal information and being transparent about how we collect, use, disclose, and safeguard your data when you visit corvinalab.com or interact with our services.</p>
+      <p>By accessing or using our website, you agree to the practices described in this Privacy Policy.</p>
+
+      <h3>Information We Collect</h3>
+      <p>We may collect the following categories of information:</p>
+      <p><strong>Information You Provide</strong></p>
+      <p>When you contact us or request our services, you may provide:</p>
+      <ul>
+        <li>Full name</li>
+        <li>Email address</li>
+        <li>Phone number</li>
+        <li>Company name</li>
+        <li>Website URL</li>
+        <li>Project details</li>
+        <li>Billing information (when applicable)</li>
+        <li>Any other information you voluntarily submit</li>
+      </ul>
+      <p><strong>Information Collected Automatically</strong></p>
+      <p>When you visit our website, we may automatically collect:</p>
+      <ul>
+        <li>IP address</li>
+        <li>Browser type</li>
+        <li>Operating system</li>
+        <li>Device information</li>
+        <li>Pages visited</li>
+        <li>Time spent on pages</li>
+        <li>Referral URLs</li>
+        <li>Website interactions</li>
+        <li>Cookies and similar technologies</li>
+      </ul>
+
+      <h3>How We Use Your Information</h3>
+      <p>We use your information to:</p>
+      <ul>
+        <li>Respond to inquiries</li>
+        <li>Provide quotes and proposals</li>
+        <li>Deliver our services</li>
+        <li>Communicate throughout projects</li>
+        <li>Improve our website and services</li>
+        <li>Analyze website performance</li>
+        <li>Prevent fraud and unauthorized activity</li>
+        <li>Comply with legal obligations</li>
+        <li>Send marketing communications when you have opted in</li>
+      </ul>
+
+      <h3>Cookies</h3>
+      <p>Our website may use cookies and similar tracking technologies to:</p>
+      <ul>
+        <li>Ensure the website functions properly</li>
+        <li>Improve user experience</li>
+        <li>Analyze website traffic</li>
+        <li>Measure marketing performance</li>
+      </ul>
+      <p>You may disable cookies through your browser settings. Please note that some features of the website may not function correctly if cookies are disabled.</p>
+
+      <h3>Third-Party Services</h3>
+      <p>We may use trusted third-party providers to operate our business, including:</p>
+      <ul>
+        <li>Website hosting providers</li>
+        <li>Email service providers</li>
+        <li>Analytics platforms</li>
+        <li>Payment processors</li>
+        <li>CRM software</li>
+        <li>Cloud storage providers</li>
+        <li>Marketing platforms</li>
+      </ul>
+      <p>These providers only receive the information necessary to perform services on our behalf.</p>
+
+      <h3>Information Sharing</h3>
+      <p>We do not sell, rent, or trade your personal information.</p>
+      <p>We may share information only:</p>
+      <ul>
+        <li>With service providers assisting our operations</li>
+        <li>When required by law</li>
+        <li>To protect our legal rights</li>
+        <li>During a merger, acquisition, or business transfer</li>
+      </ul>
+
+      <h3>International Data Transfers</h3>
+      <p>Because we work with clients around the world, your information may be transferred to and processed in countries other than your own.</p>
+      <p>We take reasonable measures to ensure appropriate safeguards are in place for such transfers.</p>
+
+      <h3>Data Retention</h3>
+      <p>We retain personal information only for as long as necessary to:</p>
+      <ul>
+        <li>Provide our services</li>
+        <li>Fulfill contractual obligations</li>
+        <li>Resolve disputes</li>
+        <li>Comply with legal requirements</li>
+        <li>Enforce our agreements</li>
+      </ul>
+      <p>Once no longer required, information is securely deleted or anonymized.</p>
+
+      <h3>Data Security</h3>
+      <p>We implement commercially reasonable technical and organizational measures to protect your information, including:</p>
+      <ul>
+        <li>SSL/HTTPS encryption</li>
+        <li>Secure servers</li>
+        <li>Restricted access to data</li>
+        <li>Regular security monitoring</li>
+        <li>Industry-standard security practices</li>
+      </ul>
+      <p>However, no method of transmission over the Internet can be guaranteed to be completely secure.</p>
+
+      <h3>Your Rights</h3>
+      <p>Depending on your location, you may have rights regarding your personal information, including:</p>
+      <ul>
+        <li>Access your information</li>
+        <li>Correct inaccurate information</li>
+        <li>Request deletion</li>
+        <li>Restrict processing</li>
+        <li>Object to certain processing activities</li>
+        <li>Withdraw consent</li>
+        <li>Request data portability where applicable</li>
+      </ul>
+      <p>To exercise your rights, please contact us using the information below.</p>
+
+      <h3>Marketing Communications</h3>
+      <p>If you subscribe to receive updates from us, you may unsubscribe at any time by following the instructions included in our emails or by contacting us directly.</p>
+
+      <h3>Children's Privacy</h3>
+      <p>Our website and services are not intended for individuals under the age of 13.</p>
+      <p>We do not knowingly collect personal information from children.</p>
+
+      <h3>Third-Party Links</h3>
+      <p>Our website may contain links to third-party websites.</p>
+      <p>We are not responsible for the privacy practices or content of those external websites.</p>
+      <p>We encourage you to review their privacy policies before providing personal information.</p>
+
+      <h3>Changes to This Privacy Policy</h3>
+      <p>We may update this Privacy Policy from time to time.</p>
+      <p>When changes are made, the "Last Updated" date at the top of this page will be revised.</p>
+      <p>Your continued use of the website constitutes acceptance of the updated Privacy Policy.</p>
+
+      <h3>Contact Us</h3>
+      <p>If you have any questions regarding this Privacy Policy or how your information is handled, please contact us.</p>
+      <p>CorvinaLab<br>Email: <a href="mailto:corvinalab@gmail.com?subject=Contato%20via%20site%20-%20Corvina">corvinalab@gmail.com</a><br>Website: <a href="https://corvinalab.com" target="_blank" rel="noopener">https://corvinalab.com</a></p>
+    </div>
+  </div>
+</div>
 
 <script>
 /* NAV */
@@ -466,6 +614,23 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 /* FAQ */
 function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open');}
 
+/* MODALS */
+function openModal(name){
+  const el=document.getElementById(name+'Modal');
+  if(!el)return;
+  el.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(name){
+  const el=document.getElementById(name+'Modal');
+  if(!el)return;
+  el.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow='';});}
+});
+
 /* HERO CANVAS */
 (function(){
   const canvas=document.getElementById('hero-canvas'),ctx=canvas.getContext('2d');
@@ -508,56 +673,44 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     const W=canvas.width=canvas.offsetWidth;
     const H=canvas.height=canvas.offsetHeight;
 
-    /* ── Fundo preto com gradientes roxo/ciano como no site real ── */
     ctx.fillStyle='#000';
     ctx.fillRect(0,0,W,H);
 
-    // Radial roxo (esquerda-centro)
     const g1=ctx.createRadialGradient(W*0.6,H*0.3,0,W*0.6,H*0.3,W*0.55);
     g1.addColorStop(0,'rgba(58,27,143,0.45)');g1.addColorStop(1,'transparent');
     ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
 
-    // Radial ciano (canto superior direito)
     const g2=ctx.createRadialGradient(W*0.85,H*0.15,0,W*0.85,H*0.15,W*0.3);
     g2.addColorStop(0,'rgba(25,234,242,0.12)');g2.addColorStop(1,'transparent');
     ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
 
-    // Radial magenta (canto inferior direito)
     const g3=ctx.createRadialGradient(W*0.9,H*0.85,0,W*0.9,H*0.85,W*0.3);
     g3.addColorStop(0,'rgba(168,27,143,0.18)');g3.addColorStop(1,'transparent');
     ctx.fillStyle=g3;ctx.fillRect(0,0,W,H);
 
-    /* ── Nav bar ── */
     ctx.fillStyle='rgba(0,0,0,0.7)';
     ctx.fillRect(0,0,W,H*0.07);
-    // Logo "G"
     const lx=W*0.04,ly=H*0.02,ls=H*0.045;
     ctx.fillStyle='#19EAF2';
     ctx.beginPath();ctx.roundRect(lx,ly,ls,ls,2);ctx.fill();
     ctx.fillStyle='#000';ctx.font=`bold ${ls*0.6}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('G',lx+ls/2,ly+ls/2);
-    // "Go Espanhol" text
     ctx.fillStyle='#fff';ctx.font=`600 ${H*0.026}px Inter,sans-serif`;ctx.textAlign='left';
     ctx.fillText('Go Espanhol',lx+ls+6,ly+ls/2+1);
-    // CTA nav button
     const bw=W*0.13,bh=H*0.038,bx=W*0.83,by=H*0.016;
     ctx.fillStyle='#19EAF2';ctx.beginPath();ctx.roundRect(bx,by,bw,bh,99);ctx.fill();
     ctx.fillStyle='#000';ctx.font=`600 ${H*0.02}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('Começar Agora',bx+bw/2,by+bh/2);
 
-    /* ── HERO — Coluna esquerda ── */
     const tx=W*0.04,ty=H*0.12;
 
-    // Badge eyebrow
     ctx.strokeStyle='rgba(25,234,242,0.3)';ctx.lineWidth=0.5;
     ctx.fillStyle='rgba(255,255,255,0.05)';
     ctx.beginPath();ctx.roundRect(tx,ty,W*0.22,H*0.045,99);ctx.fill();ctx.stroke();
-    // Dot pulsante
     ctx.fillStyle='#19EAF2';ctx.beginPath();ctx.arc(tx+10,ty+H*0.022,3,0,Math.PI*2);ctx.fill();
     ctx.fillStyle='#19EAF2';ctx.font=`600 ${H*0.018}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';
     ctx.fillText('ESPANHOL PARA VIAJANTES',tx+20,ty+H*0.022);
 
-    // Headline grande
     const hs=H*0.075;
     ctx.font=`700 ${hs}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='top';
     ctx.fillStyle='#fff';
@@ -568,12 +721,10 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillText('da Sua',tx+hs*3.2,ty+H*0.07+hs*1.05);
     ctx.fillText('Próxima Viagem.',tx,ty+H*0.07+hs*2.1);
 
-    // Subtítulo
     ctx.fillStyle='rgba(168,168,197,0.85)';ctx.font=`${H*0.022}px Inter,sans-serif`;
     ctx.fillText('Domine o espanhol essencial que você',tx,ty+H*0.07+hs*3.3);
     ctx.fillText('vai usar de verdade nas viagens.',tx,ty+H*0.07+hs*3.3+H*0.028);
 
-    // Botões CTA
     const b1x=tx,b1y=ty+H*0.07+hs*3.3+H*0.07,b1w=W*0.14,b1h=H*0.052;
     ctx.fillStyle='#19EAF2';ctx.beginPath();ctx.roundRect(b1x,b1y,b1w,b1h,99);ctx.fill();
     ctx.fillStyle='#000';ctx.font=`700 ${H*0.022}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
@@ -585,7 +736,6 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='#fff';ctx.font=`600 ${H*0.022}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('Ver Prévia',b2x+b2w/2,b1y+b1h/2);
 
-    // Avatares + "5.000+"
     const av=[['#3A1B8F','#19EAF2'],['#A81B8F','#3A1B8F'],['#19EAF2','#A81B8F']];
     let ax=tx;
     av.forEach(([c1,c2],i)=>{
@@ -599,32 +749,26 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='rgba(168,168,197,0.85)';ctx.font=`${H*0.019}px Inter,sans-serif`;
     ctx.fillText(' viajantes matriculados',tx+44+W*0.04,b1y+b1h+H*0.04);
 
-    /* ── Boarding Pass card (coluna direita) ── */
     const cx=W*0.52,cy=H*0.1,cw=W*0.44,ch=H*0.82;
 
-    // Glow ambiente
     const ga=ctx.createRadialGradient(cx+cw/2,cy+ch/2,0,cx+cw/2,cy+ch/2,cw*0.6);
     ga.addColorStop(0,'rgba(58,27,143,0.5)');ga.addColorStop(1,'transparent');
     ctx.fillStyle=ga;ctx.fillRect(cx-20,cy-20,cw+40,ch+40);
 
-    // Card base
     ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(25,234,242,0.2)';ctx.lineWidth=1;
     ctx.beginPath();ctx.roundRect(cx,cy,cw,ch,12);ctx.fill();ctx.stroke();
 
-    // Gradient overlay no card
     const gc=ctx.createLinearGradient(cx,cy,cx+cw,cy+ch);
     gc.addColorStop(0,'rgba(25,234,242,0.06)');gc.addColorStop(0.5,'transparent');gc.addColorStop(1,'rgba(58,27,143,0.1)');
     ctx.fillStyle=gc;ctx.beginPath();ctx.roundRect(cx,cy,cw,ch,12);ctx.fill();
 
-    const p=16; // padding interno do card
+    const p=16;
 
-    // Header do card
     ctx.fillStyle='#19EAF2';ctx.font=`700 ${H*0.018}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='top';
     ctx.fillText('GO ESPANHOL',cx+p,cy+p);
     ctx.fillStyle='rgba(168,168,197,0.7)';ctx.font=`${H*0.016}px Inter,sans-serif`;
     ctx.fillText('Aula 01 · Imigração',cx+p,cy+p+H*0.028);
 
-    // Badge "EN CURSO"
     ctx.strokeStyle='rgba(25,234,242,0.3)';ctx.lineWidth=0.8;
     ctx.fillStyle='rgba(25,234,242,0.08)';
     const baw=W*0.08,bah=H*0.034;
@@ -632,7 +776,6 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='#19EAF2';ctx.font=`700 ${H*0.016}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('EN CURSO',cx+cw-p-baw/2,cy+p+bah/2);
 
-    // Rota GRU → MEX
     const ry2=cy+H*0.1;
     ctx.fillStyle='#fff';ctx.font=`700 ${H*0.05}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';
     ctx.fillText('GRU',cx+p,ry2);
@@ -644,42 +787,34 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='rgba(168,168,197,0.7)';ctx.font=`${H*0.016}px Inter,sans-serif`;
     ctx.fillText('Cidade do México',cx+cw-p,ry2+H*0.038);
 
-    // Linha e ícone avião
     const lrx1=cx+p+W*0.065,lrx2=cx+cw-p-W*0.065,lry=ry2;
     const lg=ctx.createLinearGradient(lrx1,0,lrx2,0);
     lg.addColorStop(0,'rgba(255,255,255,0.1)');lg.addColorStop(0.5,'rgba(25,234,242,0.7)');lg.addColorStop(1,'rgba(255,255,255,0.1)');
     ctx.strokeStyle=lg;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(lrx1,lry);ctx.lineTo(lrx2,lry);ctx.stroke();
-    // avião simples
     const mx2=(lrx1+lrx2)/2,ms=H*0.022;
     ctx.fillStyle='#19EAF2';ctx.font=`${ms}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('✈',mx2,lry);
 
-    // Player de vídeo mockup
     const pvx=cx+p,pvy=cy+H*0.2,pvw=cw-p*2,pvh=ch*0.32;
     ctx.fillStyle='rgba(0,0,0,0.5)';ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=0.8;
     ctx.beginPath();ctx.roundRect(pvx,pvy,pvw,pvh,8);ctx.fill();ctx.stroke();
 
-    // Gradiente interior do player
     const gv=ctx.createLinearGradient(pvx,pvy,pvx+pvw,pvy+pvh);
     gv.addColorStop(0,'rgba(10,10,26,0.9)');gv.addColorStop(1,'rgba(26,10,46,0.9)');
     ctx.fillStyle=gv;ctx.beginPath();ctx.roundRect(pvx,pvy,pvw,pvh,8);ctx.fill();
 
-    // Botão play
     const pr=pvh*0.22,prx=pvx+pvw/2,pry=pvy+pvh/2;
     ctx.fillStyle='rgba(25,234,242,0.15)';ctx.strokeStyle='rgba(25,234,242,0.4)';ctx.lineWidth=1;
     ctx.beginPath();ctx.arc(prx,pry,pr,0,Math.PI*2);ctx.fill();ctx.stroke();
     ctx.fillStyle='#19EAF2';ctx.beginPath();ctx.moveTo(prx-pr*0.3,pry-pr*0.4);ctx.lineTo(prx+pr*0.5,pry);ctx.lineTo(prx-pr*0.3,pry+pr*0.4);ctx.closePath();ctx.fill();
 
-    // Label da professora
     ctx.fillStyle='rgba(255,255,255,0.7)';ctx.font=`${H*0.015}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';
     ctx.fillText('Prof. Fernanda',pvx+8,pvy+H*0.02);
 
-    // Legenda no player
     ctx.fillStyle='rgba(0,0,0,0.7)';ctx.beginPath();ctx.roundRect(pvx+8,pvy+pvh-H*0.04,pvw-16,H*0.032,3);ctx.fill();
     ctx.fillStyle='#fff';ctx.font=`${H*0.015}px Inter,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('"¿Dónde está la salida?" — Onde fica a saída?',pvx+pvw/2,pvy+pvh-H*0.025);
 
-    // Barra de progresso
     const prby=pvy+pvh+H*0.015,prbh=H*0.008;
     ctx.fillStyle='rgba(255,255,255,0.06)';ctx.beginPath();ctx.roundRect(pvx,prby,pvw,prbh,2);ctx.fill();
     const ppg=ctx.createLinearGradient(pvx,0,pvx+pvw*0.38,0);
@@ -688,17 +823,14 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='rgba(168,168,197,0.7)';ctx.font=`${H*0.014}px Inter,sans-serif`;ctx.textAlign='left';ctx.textBaseline='top';
     ctx.fillText('2:14 / 5:48',pvx,prby+prbh+4);
 
-    // Linha tracejada (boarding pass divider)
     const dly=pvy+pvh+H*0.065;
     ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=0.8;
     ctx.beginPath();ctx.moveTo(cx+p,dly);ctx.lineTo(cx+cw-p,dly);ctx.stroke();
     ctx.setLineDash([]);
-    // Meias-luas
     ctx.fillStyle='#000';ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=0.5;
     ctx.beginPath();ctx.arc(cx,dly,6,Math.PI*1.5,Math.PI*0.5);ctx.fill();ctx.stroke();
     ctx.beginPath();ctx.arc(cx+cw,dly,6,Math.PI*0.5,Math.PI*1.5);ctx.fill();ctx.stroke();
 
-    // "Frase do dia" card
     const fcy=dly+H*0.02,fcw=cw*0.6,fch=H*0.1;
     ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(255,255,255,0.09)';ctx.lineWidth=0.7;
     ctx.beginPath();ctx.roundRect(cx+p,fcy,fcw,fch,8);ctx.fill();ctx.stroke();
@@ -709,7 +841,6 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.fillStyle='rgba(255,255,255,0.4)';ctx.font=`${H*0.016}px Inter,sans-serif`;
     ctx.fillText('Uma passagem, por favor.',cx+p+8,fcy+H*0.057);
 
-    // eBook card
     const ecx=cx+p+fcw+8,ecw=cw-p*2-fcw-8;
     ctx.fillStyle='rgba(58,27,143,0.18)';ctx.strokeStyle='rgba(58,27,143,0.35)';ctx.lineWidth=0.7;
     ctx.beginPath();ctx.roundRect(ecx,fcy,ecw,fch,8);ctx.fill();ctx.stroke();
@@ -718,7 +849,6 @@ function toggleFaq(qEl){const item=qEl.closest('.faq-item'),isOpen=item.classLis
     ctx.font=`${H*0.015}px Inter,sans-serif`;
     ctx.fillText('eBook Bônus',ecx+ecw/2,fcy+fch*0.72);
 
-    // Badge "Disponível offline" flutuante
     const obx=cx-8,oby=cy+ch-H*0.06;
     ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(25,234,242,0.2)';ctx.lineWidth=0.8;
     ctx.beginPath();ctx.roundRect(obx,oby,W*0.17,H*0.042,8);ctx.fill();ctx.stroke();
